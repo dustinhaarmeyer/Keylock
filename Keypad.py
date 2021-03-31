@@ -82,8 +82,11 @@ class Keypad():
             return line3
         elif line4 != None:
             return line4
-        
-        
-while True:
-    read()
-    sleep(1)
+        else:
+            return None
+
+    def waitFor(self, button):
+        k = keypad()
+        while k.read() != str(button):
+            sleep(0.1)
+        return k.read()
