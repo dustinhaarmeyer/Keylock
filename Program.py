@@ -3,7 +3,9 @@ import RPi.GPIO
 import time
 from time import sleep
 from RFIDReader import Reader
-from LED
+from LED import LED
+from Database import Database
+from Door import Door
 
 k = Keypad()                        #Keypad
 r = Reader()                        #RFID Reader
@@ -17,15 +19,18 @@ while True:
         sleep(0.2)
     token = k.read()
     print(token)
-    #gLED.blink()
+    gLED.blink()
 
     if token == "*":                #RFID Code for known user
         tag = r.read()
         answer = db.check(tag, "User")
-        #gLED.blink()
+        gLED.blink()
         #d.open()
     elif token == "#":              #Code for unknown User
         token = None
+        token1 = ""
+        token2 = ""
+        token3 = ""
         while token3 == "":
             while token == None:    #token = Actual press
                 k.read()            #token1 / 2 /3 = token already pressed
@@ -38,7 +43,7 @@ while True:
                 token3 = token
             #gLED.blink()
             #gLED.blink()
-        code = str(token1) + str(token2) + str(token3) + str(token4)
+        code = str(token1) + str(token2) + str(token3)
         print(code)
         #answer = db.check(code, "FormCode")
         if answer == True:          # Check the given code in the DB 

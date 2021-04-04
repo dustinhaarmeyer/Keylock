@@ -86,7 +86,7 @@ class Keypad():
             return None
 
     def waitFor(self, button):
-        k = keypad()
+        k = Keypad()
         while k.read() != str(button):
-            sleep(0.1)
+            time.sleep(0.1)
         return k.read()
