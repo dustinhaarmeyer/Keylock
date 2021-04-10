@@ -5,10 +5,10 @@ import mysql.connector as mysql
 class Database():
     succesfullyConnected = False
     Mdb = ""
-    def __init__(self, host, dbp, dbu):
+    def __init__(self, host, dbp, dbu, dtb):
         try:
             print('Setup')
-            self.Mdb = mysql.connect(host=host, user=dbu, password=dbp)
+            self.Mdb = mysql.connect(host=host, user=dbu, password=dbp, database=dtb)
             #print("Connected Succesfully")
             self.succesfullyConnected = True
         except:

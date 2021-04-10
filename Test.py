@@ -13,7 +13,7 @@ r = Reader()                        #RFID Reader
 db = Database()                     #Database (mysql Server)
 
 
-db = Database("localhost","root","securePassword")
+db = Database("localhost","root","securePassword","Keylock")
 print(db.state())
 
 print("Starting Loop!")
