@@ -8,13 +8,12 @@ from Database import Database
 #from Door import Door
 
 
-k = Keypad()                        #Keypad
-r = Reader()                        #RFID Reader
-db = Database()                     #Database (mysql Server)
+k = Keypad()                                                                        #Keypad
+r = Reader()                                                                        #RFID Reader
+db = Database("localhost", "securePassword", "root", "Keylock")                     #Database (mysql Server)
 
-
-db = Database("localhost","root","securePassword","Keylock")
 print(db.state())
+
 
 print("Starting Loop!")
 while True:

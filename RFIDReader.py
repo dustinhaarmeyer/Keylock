@@ -10,9 +10,4 @@ class Reader():
     def read(self):
         global reader
         return reader.read()
-    print('a')
-
-while True:
-    r = Reader()
-    print(r.read())
-    time.sleep(0.1)
+    

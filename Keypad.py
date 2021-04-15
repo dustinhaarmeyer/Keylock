@@ -69,10 +69,10 @@ class Keypad():
         global C3
         global C4
 
-        line1 = readLine(L1, ["1","2","3","A"])
-        line2 = readLine(L2, ["4","5","6","B"])
-        line3 = readLine(L3, ["7","8","9","C"])
-        line4 = readLine(L4, ["*","0","#","D"])
+        line1 = self.readLine(L1, ["1","2","3","A"])
+        line2 = self.readLine(L2, ["4","5","6","B"])
+        line3 = self.readLine(L3, ["7","8","9","C"])
+        line4 = self.readLine(L4, ["*","0","#","D"])
 
         if line1 != None:
             return line1
