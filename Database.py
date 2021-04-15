@@ -5,6 +5,7 @@ import mysql.connector as mysql
 class Database():
     succesfullyConnected = False
     Mdb = ""
+    cursor = ""
     def __init__(self, host, dbp, dbu, dtb):
         try:
             print('Setup')
@@ -17,4 +18,9 @@ class Database():
         return self.succesfullyConnected
     def check(self, code):
         search = "SELECT * FROM Users WHERE code = '" + code + "'"
+    def execute(self, command):
+        self.cursor = self.Mdb.cursor()
+        self.cursor.execute(command)
 
+db = Database("localhost", "securePassword", "root", "Keylock")
+print(db.state())
