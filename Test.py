@@ -29,5 +29,10 @@ while True:
         print(answer)
         if answer == "known":
             print("User is known")
+            #d.open()
+            print('Door opened')
+            k.waitFor("A")
+            #d.close
+            print('Door closed')
         elif answer == "Unknown":
             print("Not known! Please retry")

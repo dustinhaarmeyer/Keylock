@@ -18,9 +18,15 @@ class Database():
         return self.succesfullyConnected
     def check(self, code):
         search = "SELECT * FROM Users WHERE code = '" + code + "'"
+        self.execute(search)
+        a = self.cursor.fetchall()
+        print(a)
+        #def insertKUser(self, code):
+        #   sql = "INSER INTO Users"
+        return "known"
     def execute(self, command):
         self.cursor = self.Mdb.cursor()
         self.cursor.execute(command)
 
-db = Database("localhost", "securePassword", "root", "Keylock")
-print(db.state())
+#db = Database("localhost", "securePassword", "root", "Keylock")
+#print(db.state())
