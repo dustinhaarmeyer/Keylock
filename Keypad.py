@@ -90,3 +90,6 @@ class Keypad():
         while k.read() != str(button):
             time.sleep(0.1)
         return k.read()
+
+k = Keypad()
+print(k.read())
