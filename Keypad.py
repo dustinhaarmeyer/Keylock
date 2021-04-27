@@ -69,10 +69,12 @@ class Keypad():
         global C3
         global C4
 
-        line1 = self.readLine(L1, ["1","2","3","A"])
-        line2 = self.readLine(L2, ["4","5","6","B"])
-        line3 = self.readLine(L3, ["7","8","9","C"])
-        line4 = self.readLine(L4, ["*","0","#","D"])
+        KP = Keypad()
+
+        line1 = KP.readLine(L1, ["1","2","3","A"])
+        line2 = KP.readLine(L2, ["4","5","6","B"])
+        line3 = KP.readLine(L3, ["7","8","9","C"])
+        line4 = KP.readLine(L4, ["*","0","#","D"])
 
         if line1 != None:
             return line1
@@ -89,7 +91,4 @@ class Keypad():
         k = Keypad()
         while k.read() != str(button):
             time.sleep(0.1)
-        return k.read()
-
-k = Keypad()
-print(k.read())
+        #return k.read()
