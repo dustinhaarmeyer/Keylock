@@ -27,6 +27,3 @@ class Database():
     def execute(self, command):
         self.cursor = self.Mdb.cursor()
         self.cursor.execute(command)
-
-#db = Database("localhost", "securePassword", "root", "Keylock")
-#print(db.state())
