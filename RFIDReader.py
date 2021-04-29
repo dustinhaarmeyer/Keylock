@@ -9,5 +9,8 @@ class Reader():
         reader = SimpleMFRC522()
     def read(self):
         global reader
-        return reader.read()
+        read = reader.read()
+        if read == None or read == "":
+            print('No code')
+        return read
     

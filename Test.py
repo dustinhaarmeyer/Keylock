@@ -26,21 +26,26 @@ db = Database("localhost", "securePassword", "root", "Keylock")                 
 
 print(db.state())
 
-def printKey(key):
+def foundKey(key):
     print(key)
     code += key
     codeLenght += 1
 
 print("Starting Loop!")
-keypad.registerKeyPressHandler(printKey)
+keypad.registerKeyPressHandler(foundKey)
 while True:
-    while codeLenght <4:
-        print('Code has 4 numbers!')
+    while code == "":
+        print('No button pressed')
 
     if code == "*":                #RFID Code for known user
-        tag = k.read()
+        code = ""
+        codeLenght = 0
+
+        tag = r.read()
+
         answer = db.check(tag, "User")
         print(answer)
+        answer = "known"
         if answer == "known":
             print("User is known")
             #d.open()
