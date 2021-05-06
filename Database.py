@@ -27,3 +27,15 @@ class Database():
     def execute(self, command):
         self.cursor = self.Mdb.cursor()
         self.cursor.execute(command)
+
+f = ""
+class Textfile():
+    def __init__(self,filename):
+        global f
+        f = open(filename, "r")
+    def search(self, code):
+        global f
+        for x in f:
+            if x == code:
+                return True
+    
