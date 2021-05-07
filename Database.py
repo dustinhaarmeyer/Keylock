@@ -36,6 +36,10 @@ class Textfile():
     def search(self, code):
         global f
         for x in f:
-            if x == code:
+            if code in x:
                 return True
-    
+        return False
+
+file = Textfile("/home/pi/Desktop/Program/code.txt")
+
+print(file.search("27264954481"))
