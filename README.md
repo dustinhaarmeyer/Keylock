@@ -4,17 +4,20 @@
 Keysafe Box with a lots of keys and one Lock. Every Key has a RFID Tag. Known Users have their own RFID Card / Tag. Other users use a Web-Form to get a code to open the box.
 
 Known Users:
-- Press "#" on the Keypad, than press "A" to took a key     "B" to bring it back
-A:
-- Hold his RFID Tag / Card on the RFID Scanner
-- If the card is correct the Door opens and he can took the key he want to have
-- Hold the RFID Tag of the key he want to took 
-- Close the Door and press ""
+   Take Key:
+- Press "*" on the Keypad
+- Hold your RFID Tag on the Scanner
+- The Door opens
+- You can take the Key you want, close the Door
+- Hold the Tag on the Key you picked on the Scanner
 
-B:
-- Hold the RFID Tag of the Key on the Reader
-- If the card / Tag is correct the door opens and he can bring the key back
-- Close the door and press ""
+(Not working yet:)
+   Bring Key back:
+- Press "" on the Keypad
+- Hold the RFID Tag of the Key on the Scanner
+- The Door opens
+- Bring the Key back and Close the Door
+- Press "" on the Keypad
 
 
 Unknown Users:
