@@ -24,12 +24,12 @@ keypad = factory.create_keypad(keypad=KEYPAD, row_pins=ROW_PINS, col_pins=COL_PI
 r = Reader()                                                                        #RFID Reader
 #db = Database("localhost", "securePassword", "root", "Keylock")                     #Database (mysql Server)
 userC = Textfile("/home/pi/Desktop/Program/code.txt")
-keyC = Textfile("/home/pi/Desktop/Program/keycode.txt")
+keyC = Textfile("/home/pi/Desktop/Program/KeyCode.txt")
 
 #print(db.state())
 
 def foundKey(key):
-    #print(key)
+    print(key)
     code += key
     codeLenght += 1
 
@@ -46,7 +46,6 @@ while True:
 
         tag = r.read()
         userNum = userC.search(tag)
-
         if userNum != 0: #Get User Name... to save it to who picked which key
             print("User is known")
             #d.open()
