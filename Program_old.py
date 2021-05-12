@@ -23,7 +23,8 @@ factory = rpi_gpio.KeypadFactory()
 keypad = factory.create_keypad(keypad=KEYPAD, row_pins=ROW_PINS, col_pins=COL_PINS)
 r = Reader()                                                                        #RFID Reader
 #db = Database("localhost", "securePassword", "root", "Keylock")                     #Database (mysql Server)
-fr = Textfile("/home/pi/Desktop/Program/code.txt")
+user = Textfile("/home/pi/Desktop/Program/code.txt")
+keys = Textfile("/home/pi/Desktop/Program/keycode.txt")
 
 #print(db.state())
 
@@ -45,7 +46,7 @@ while True:
 
         tag = r.read()
         print(tag)      #"RFID Tag: " + tag)
-        answer = fr.search(tag)
+        answer = user.search(tag)
         #answer = db.check(tag, "User")
         print(answer)   #"DB Answer " + answer)
         if answer:

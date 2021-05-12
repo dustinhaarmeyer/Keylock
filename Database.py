@@ -35,11 +35,10 @@ class Textfile():
         f = open(filename, "r")
     def search(self, code):
         global f
+        n = 0
         for x in f:
+            n += 1
             if code in x:
-                return True
-        return False
-
-file = Textfile("/home/pi/Desktop/Program/code.txt")
-
-print(file.search("27264954481"))
+                return n
+        return 0
+    
