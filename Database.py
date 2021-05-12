@@ -28,18 +28,14 @@ class Database():
         self.cursor = self.Mdb.cursor()
         self.cursor.execute(command)
 
-f = ""
+
 class Textfile():
+    f = ""
     def __init__(self,filename):
-        global f
-        f = open(filename, "r")
+        self.f = open(filename, "r")
     def search(self, code):
-        global f
-        for x in f:
+        for x in self.f:
             if code in x:
                 return True
         return False
 
-file = Textfile("/home/pi/Desktop/Program/code.txt")
-
-print(file.search("27264954481"))
