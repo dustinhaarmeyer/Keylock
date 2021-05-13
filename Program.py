@@ -29,6 +29,8 @@ keyC = Textfile("/home/pi/Desktop/Program/KeyCode.txt")
 #print(db.state())
 
 def foundKey(key):
+    global code
+    global codeLenght
     print(key)
     code += key
     codeLenght += 1
