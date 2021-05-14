@@ -8,6 +8,8 @@ from pad4pi import rpi_gpio
 #from LED import LED
 #from Door import Door
 
+GPIO.setwarnings(False)
+
 KEYPAD = [
     [1, 2, 3],
     [4, 5, 6],
