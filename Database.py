@@ -38,7 +38,7 @@ class Textfile():
         n = 0
         for x in f:
             n += 1
-            if code in x:
+            if str(code) in str(x):
                 return n
         return 0
     
