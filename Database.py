@@ -42,5 +42,10 @@ class Textfile():
                 return n
         return 0
 
-file = Textfile("code.txt")
-print(file.search("648458285181"))
+#Test:
+#file = Textfile("code.txt")
+#code = "648458285181   "
+#tag = code.split()[0]
+#print("RFID Tag: " + str(tag))
+#userNum = file.search(tag)
+#print("User Number: " + str(userNum))
