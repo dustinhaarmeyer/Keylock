@@ -41,4 +41,6 @@ class Textfile():
             if str(code) in str(x):
                 return n
         return 0
-    
+
+file = Textfile("code.txt")
+print(file.search("648458285181"))

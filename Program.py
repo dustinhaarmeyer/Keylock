@@ -49,7 +49,9 @@ while True:
         codeLenght = 0
 
         tag = r.read()
+        print("RFID Tag" + tag)
         userNum = userC.search(tag)
+        print("User Number" + userNum)
         if userNum != 0: #Get User Name... to save it to who picked which key
             print("User is known")
             #d.open()
