@@ -6,7 +6,7 @@ from RFIDReader import Reader
 from Database import Textfile
 from pad4pi import rpi_gpio
 #from LED import LED
-#from Door import Door
+from Door import Door
 
 GPIO.setwarnings(False)
 
@@ -24,6 +24,7 @@ code = ""
 factory = rpi_gpio.KeypadFactory()
 keypad = factory.create_keypad(keypad=KEYPAD, row_pins=ROW_PINS, col_pins=COL_PINS)
 r = Reader()                                                                        #RFID Reader
+d = Door(37)
 #db = Database("localhost", "securePassword", "root", "Keylock")                     #Database (mysql Server)
 userC = Textfile("/home/pi/Desktop/Program/code.txt")
 keyC = Textfile("/home/pi/Desktop/Program/KeyCode.txt")
@@ -37,6 +38,7 @@ def foundKey(key):
     code += key
     codeLenght += 1
 
+d.close()
 print("Starting Loop!")
 keypad.registerKeyPressHandler(foundKey)
 while True:
@@ -55,11 +57,9 @@ while True:
         print("User Number: " + str(userNum))
         if userNum != 0: #Get User Name... to save it to who picked which key
             print("User is known")
-            #d.open()
-            print('Door opened')
-            #k.waitFor("A")
-            #d.close
-            print('Door closed')
+            d.open()
+            sleep(5)
+            d.close()
         else:
             print("Not known! Please retry")
     else:
