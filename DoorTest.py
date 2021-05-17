@@ -1,7 +1,7 @@
 import RPi.GPIO as GPIO
 from time import sleep
 
-pin = 37
+pin = 26
 
 #GPIO.setmode(GPIO.BOARD)
 GPIO.setup(pin, GPIO.OUT)
