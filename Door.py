@@ -4,7 +4,7 @@ class Door():
     pin = 0
     def __init__(self,pin):
         self.pin = pin
-        GPIO.setmode(GPIO.BOARD)
+        #GPIO.setmode(GPIO.BOARD)
         GPIO.setup(self.pin, GPIO.OUT)
         print('Door Setup done')
     def open(self):

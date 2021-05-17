@@ -24,7 +24,7 @@ code = ""
 factory = rpi_gpio.KeypadFactory()
 keypad = factory.create_keypad(keypad=KEYPAD, row_pins=ROW_PINS, col_pins=COL_PINS)
 r = Reader()                                                                        #RFID Reader
-d = Door(37)
+d = Door(26)    #Board: 37)
 #db = Database("localhost", "securePassword", "root", "Keylock")                     #Database (mysql Server)
 userC = Textfile("/home/pi/Desktop/Program/code.txt")
 keyC = Textfile("/home/pi/Desktop/Program/KeyCode.txt")

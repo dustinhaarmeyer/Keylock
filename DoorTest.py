@@ -3,7 +3,7 @@ from time import sleep
 
 pin = 37
 
-GPIO.setmode(GPIO.BOARD)
+#GPIO.setmode(GPIO.BOARD)
 GPIO.setup(pin, GPIO.OUT)
 
 while True:
