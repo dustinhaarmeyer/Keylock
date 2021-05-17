@@ -12,5 +12,5 @@ class Reader():
         read = reader.read()
         if read == None or read == "":
             print('No code')
-        return read[0]
+        return str(read[0])
     
