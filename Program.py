@@ -54,7 +54,7 @@ while True:
         CodeNum = str(tag[0])
         CodeNum = CodeNum.split()[0]
         print("RFID Tag: " + str(CodeNum))
-        userNum = userC.search(CodeNum)
+        userNum = userC.search(str(CodeNum))
         print("User Number: " + str(userNum))
         if userNum != 0: #Get User Name... to save it to who picked which key
             print("User is known")

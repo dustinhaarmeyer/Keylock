@@ -30,16 +30,17 @@ class Database():
 
 f = ""
 class Textfile():
+    codes = []
     def __init__(self,filename):
         global f
         f = open(filename, "r")
+        for rows in f:
+            codes.append(rows)
     def search(self, code):
         global f
-        n = 0
-        for x in f:
-            n += 1
-            if str(code) in str(x):
-                return n
+        n = 1
+        if str(code) in codes:
+            return n
         return 0
 
 #Test:
