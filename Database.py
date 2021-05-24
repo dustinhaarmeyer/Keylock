@@ -28,19 +28,18 @@ class Database():
         self.cursor = self.Mdb.cursor()
         self.cursor.execute(command)
 
-f = ""
 class Textfile():
     codes = []
+    f = ""
     def __init__(self,filename):
-        global f
-        f = open(filename, "r")
-        for rows in f:
-            codes.append(rows)
+        self.f = open(filename, "r")
+        for rows in self.f:
+            x = rows.split()[0]
+            self.codes.append(str(x))
     def search(self, code):
-        global f
         n = 1
-        if str(code) in codes:
-            return n
+        if str(code) in self.codes:
+            return 1
         return 0
 
 #Test:

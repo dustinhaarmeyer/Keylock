@@ -19,7 +19,7 @@ KEYPAD = [
 ROW_PINS = [5, 6, 13, 19] # BCM numbering
 COL_PINS = [12, 16, 20] # BCM numbering
 codeLenght = 0
-code = ""
+code = "*"  # Delete * out of this for working version
 
 factory = rpi_gpio.KeypadFactory()
 keypad = factory.create_keypad(keypad=KEYPAD, row_pins=ROW_PINS, col_pins=COL_PINS)
@@ -51,8 +51,8 @@ while True:
         codeLenght = 0
 
         tag = r.read()
-        CodeNum = str(tag[0])
-        CodeNum = CodeNum.split()[0]
+        CodeNum = str(tag)
+        CodeNum = CodeNum.split(' ')[0]
         print("RFID Tag: " + str(CodeNum))
         userNum = userC.search(str(CodeNum))
         print("User Number: " + str(userNum))
