@@ -29,6 +29,23 @@ class Database():
         self.cursor.execute(command)
 
 class Textfile():
+    codes2 = []
+    f = ""
+    def __init__(self,filename):
+        self.f = open(filename, "r")
+        for rows in self.f:
+            x = rows.split()[0]
+            self.codes2.append(str(x))
+            #print(filename + x)
+        self.f.close()
+    def search(self, code):
+        n = 1
+        print(self.codes2)
+        if str(code) in self.codes2:
+            return 1
+        return 0
+
+class Textfile2():
     codes = []
     f = ""
     def __init__(self,filename):
@@ -36,12 +53,14 @@ class Textfile():
         for rows in self.f:
             x = rows.split()[0]
             self.codes.append(str(x))
+            #print(filename + x)
+        self.f.close()
     def search(self, code):
         n = 1
+        print(self.codes)
         if str(code) in self.codes:
             return 1
         return 0
-
 #Test:
 #userC = Textfile("code.txt")
 #tag = {}

@@ -3,7 +3,7 @@ import time
 from time import sleep
 from RFIDReader import Reader
 #from Database import Database
-from Database import Textfile
+from Database import Textfile, Textfile2
 from pad4pi import rpi_gpio
 #from LED import LED
 from Door import Door
@@ -26,8 +26,8 @@ keypad = factory.create_keypad(keypad=KEYPAD, row_pins=ROW_PINS, col_pins=COL_PI
 r = Reader()                                                                        #RFID Reader
 d = Door(26)    #Board: 37)
 #db = Database("localhost", "securePassword", "root", "Keylock")                     #Database (mysql Server)
-userC = Textfile("/home/pi/Desktop/Program/code.txt")
-keyC = Textfile("/home/pi/Desktop/Program/KeyCode.txt")
+userC = Textfile("/home/pi/RFID Keysave/code.txt")  #"/home/pi/Desktop/Program/code.txt")
+keyC = Textfile2("/home/pi/RFID Keysave/KeyCode.txt")  #"/home/pi/Desktop/Program/KeyCode.txt")
 
 #print(db.state())
 
@@ -43,6 +43,7 @@ print("Starting Loop!")
 keypad.registerKeyPressHandler(foundKey)
 while True:
     while code == "":
+        #code = input()
         #print('No button pressed')
         codeLenght = codeLenght
 
