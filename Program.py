@@ -30,7 +30,7 @@ d = Door(26)    #Board: 37)
 #db = Database("localhost", "securePassword", "root", "Keylock")                     #Database (mysql Server)
 userC = Textfile("/home/pi/Desktop/Program/code.txt")       #/home/pi/RFID Keysave/code.txt"
 keyC = Textfile2("/home/pi/Desktop/Program/KeyCode.txt")  #"/home/pi/RFID Keysave/KeyCode.txt"
-f = open("/home/pi/Dektop/Program/log.txt")
+f = open("/home/pi/Dektop/Program/log.txt", "w")
 f.write("Log opened")
 
 app = flask.Flask(__name__)
@@ -91,7 +91,7 @@ while True:
                 sleep(0.2)
             d.close()
         else:
-            f.write("User " + codeNum " not known")
+            f.write("User " + CodeNum + " not known")
             print("Not known! Please retry")
         f.flush()
     else:
