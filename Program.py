@@ -30,6 +30,8 @@ d = Door(26)    #Board: 37)
 #db = Database("localhost", "securePassword", "root", "Keylock")                     #Database (mysql Server)
 userC = Textfile("/home/pi/Desktop/Program/code.txt")       #/home/pi/RFID Keysave/code.txt"
 keyC = Textfile2("/home/pi/Desktop/Program/KeyCode.txt")  #"/home/pi/RFID Keysave/KeyCode.txt"
+f = open("/home/pi/Dektop/Program/log.txt")
+f.write("Log opened")
 
 app = flask.Flask(__name__)
 def API(conf):
@@ -53,6 +55,7 @@ def form():
     return "Please save this code, you need it: " + str(code)
 
 def foundKey(key):
+    f.write("Keypad pressed. Key:" + key)
     global code
     global codeLenght
     print(key)
@@ -76,17 +79,20 @@ while True:
         tag = r.read()
         CodeNum = str(tag)
         CodeNum = CodeNum.split(' ')[0]
+        f.write("RFID Tag found: " + CodeNum)
         print("RFID Tag: " + str(CodeNum))
         userNum = userC.search(str(CodeNum))
         print("User Number: " + str(userNum))
         if userNum != 0:
-            print("User is known")
+            f.write("User " + CodeNum + " is known")
             d.open()
             code = ""
             while code == "":
                 sleep(0.2)
             d.close()
         else:
+            f.write("User " + codeNum " not known")
             print("Not known! Please retry")
+        f.flush()
     else:
         code = ""
