@@ -28,12 +28,12 @@ code = ""  # Add something to test the Different buttons
 factory = rpi_gpio.KeypadFactory()
 keypad = factory.create_keypad(keypad=KEYPAD, row_pins=ROW_PINS, col_pins=COL_PINS)
 r = Reader()     #RFID Reader
-form = Form()
+fo = Form()
 d = Door(26)    #Board: 37)
 #db = Database("localhost", "securePassword", "root", "Keylock")                     #Database (mysql Server)
 userC = Textfile("/home/pi/Desktop/Program/code.txt")       #/home/pi/RFID Keysave/code.txt"
 keyC = Textfile2("/home/pi/Desktop/Program/KeyCode.txt")  #"/home/pi/RFID Keysave/KeyCode.txt"
-f = open("/home/pi/Dektop/Program/log.txt", "w") #Log File
+f = open("/home/pi/Desktop/Program/log.txt", "w") #Log File
 f.write("Log opened")
 
 app = flask.Flask(__name__)
@@ -53,7 +53,7 @@ def form():
     print(name)
     print(phoneNumber)
     print(email)
-    num = Form.submit(name, birthdate, phoneNumber, email)
+    num = fo.submit(name, email, phoneNumber, birthdate)
     return "Your 4-Digit Code to open the Door: " + str(num)
 
 def foundKey(key):

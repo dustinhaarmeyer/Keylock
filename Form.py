@@ -35,7 +35,7 @@ class Form:
             if str(num) == obj.codeNumber:
                 return True
         return False
-    def submit(self, name, email, phone, birthdate) -> int:
+    def submit(self, name, email, phone, birthdate):
         num = random.randint(1111,9999)
         while self.check(num):
             num = random.randint(1111,9999)
