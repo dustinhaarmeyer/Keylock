@@ -10,6 +10,7 @@ from Door import Door
 import flask
 from flask import redirect, request
 import multiprocessing
+import random
 
 GPIO.setwarnings(False)
 KEYPAD = [
@@ -48,7 +49,7 @@ def form():
     print(name)
     print(phoneNumber)
     print(email)
-    code = 200
+    code = random.randint(1000,9999)
     # code = submit(name, birthdate, phoneNumber, email)
     return "Please save this code, you need it: " + str(code)
 
