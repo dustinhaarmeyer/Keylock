@@ -3,16 +3,25 @@ import datetime
 import time
 
 class sheet:
-    Kuser = []
+    kUser = []
+    unkUser = []
     def __init__(self):
         gc = pygsheets.authorize(service_file='/Users/Ralf/Desktop/creds.json')
         sh = gc.open('KeySave')
         self.keys = sh[0]
         self.kUsers = sh[1]
         self.unkUsers = sh[2]
-        self.readKUser()
+        self.readkUser()
         
-    def takeKey(self, num):
+    def readkUser(self):
+        i = 1
+        value = self.kUsers.get_value("B" + str(i+1))
+        while value != "":
+            self.kUser.append(value)
+            i += 1
+            value = self.kUsers.get_value("B" + str(i+1))
+
+    def takeKey(self, num, usertype, user):
         header = self.keys.cell("B" + str(int(num)+1))
         header.value = "taken"
         header.update()
@@ -21,7 +30,14 @@ class sheet:
         header.value = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
         header.update()
 
-    def returnKey(self, num):
+        if usertype == "known" and str(user) != "0":
+            header = self.kUsers.cell("C" + str(int(user) + 1))
+            header.value = num
+            header.update()
+        elif usertype == "unknown" and str(user) != "0":
+            yx = ""
+
+    def returnKey(self, num, usertype, user):
         header = self.keys.cell("B" + str(int(num)+1))
         header.value = "returned"
         header.update()
@@ -30,25 +46,34 @@ class sheet:
         header.value = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
         header.update()
 
-    def readKUser(self):
-        i = 1
-        value = self.kUsers.get_value("B" + str(i+1))
-        while value != "":
-            self.Kuser.append(value)
-            i += 1
-            value = self.kUsers.get_value("B" + str(i+1))
+        if usertype == "known" and str(user) != "0":
+            header = self.kUsers.cell("C" + str(int(user) + 1))
+            header.value = " "
+            header.update()
+        elif usertype == "unknown" and str(user) != "0":
+            yx = ""
 
-    def findKUser(self,code):
+    def findkUser(self, code):
         n = 0
-        for x in self.Kuser:
+        for x in self.kUser:
             n += 1
             if str(x) == str(code):
                 return n
         return 0
         
+    def hasKey(self, usertype, user):
+        if usertype == "known" and str(user) != "0":
+            value = self.kUsers.get_value("C" + str(int(user) + 1))
+            if value != " " and value != "":
+                return True 
+            return False
+        elif usertype == "unknown" and str(user) != "0":
+            yx = ""
 
 sh = sheet()
-sh.takeKey(3)
-sh.returnKey(1)
 
-print(sh.findKUser(27264954481))
+sh.takeKey(3, "known", "2")
+print(sh.hasKey("known", "2"))
+sh.returnKey(3, "known", "2")
+
+#print(sh.findkUser(27264954481))
