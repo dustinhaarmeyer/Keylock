@@ -7,6 +7,7 @@ from Database import Textfile, Textfile2
 from pad4pi import rpi_gpio
 #from LED import LED
 from Door import Door
+from Form import Form, unknownUser
 import flask
 from flask import redirect, request
 import multiprocessing
@@ -22,16 +23,17 @@ KEYPAD = [
 ROW_PINS = [5, 6, 13, 19] # BCM numbering
 COL_PINS = [12, 16, 20] # BCM numbering
 codeLenght = 0
-code = ""  # Delete * out of this for working version
+code = ""  # Add something to test the Different buttons
 
 factory = rpi_gpio.KeypadFactory()
 keypad = factory.create_keypad(keypad=KEYPAD, row_pins=ROW_PINS, col_pins=COL_PINS)
-r = Reader()                                                                        #RFID Reader
+r = Reader()     #RFID Reader
+form = Form()
 d = Door(26)    #Board: 37)
 #db = Database("localhost", "securePassword", "root", "Keylock")                     #Database (mysql Server)
 userC = Textfile("/home/pi/Desktop/Program/code.txt")       #/home/pi/RFID Keysave/code.txt"
 keyC = Textfile2("/home/pi/Desktop/Program/KeyCode.txt")  #"/home/pi/RFID Keysave/KeyCode.txt"
-f = open("/home/pi/Dektop/Program/log.txt", "w")
+f = open("/home/pi/Dektop/Program/log.txt", "w") #Log File
 f.write("Log opened")
 
 app = flask.Flask(__name__)
@@ -46,14 +48,13 @@ def form():
     email = request.args.get('email')
     phoneNumber = request.args.get('phone')
     birthdate = request.args.get('birthdate')
-
+    f.write("API called by :" + name + ". Email:" + email + ", phone Number:" + phoneNumber + ", birthdate:" + birthdate + ".")
     print(birthdate)
     print(name)
     print(phoneNumber)
     print(email)
-    code = random.randint(1000,9999)
-    # code = submit(name, birthdate, phoneNumber, email)
-    return "Please save this code, you need it: " + str(code)
+    num = Form.submit(name, birthdate, phoneNumber, email)
+    return "Your 4-Digit Code to open the Door: " + str(num)
 
 def foundKey(key):
     f.write("Keypad pressed. Key:" + key)
@@ -72,11 +73,11 @@ while True:
         #code = input()
         #print('No button pressed')
         codeLenght = codeLenght
+        sleep(0.1)
 
     if code == "*":                #RFID Code for known user
         code = ""
         codeLenght = 0
-
         tag = r.read()
         CodeNum = str(tag)
         CodeNum = CodeNum.split(' ')[0]
@@ -95,5 +96,15 @@ while True:
             f.write("User " + CodeNum + " not known")
             print("Not known! Please retry")
         f.flush()
+    elif code == "0":   #Using the Code of the API
+        code = ""
+        print("Please enter your 4-Digit Code")
+        while codeLenght < 4:
+            sleep(0.1)
+        print(code)
+        #Check Code and Open the Door
+    elif code == "#":   #Returning Key
+        code = ""
+        #Check Key and Open Door
     else:
         code = ""

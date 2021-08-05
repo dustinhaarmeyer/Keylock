@@ -13,26 +13,23 @@ Known Users:
 
 (Not working yet:)
    Bring Key back:
-- Press "" on the Keypad
+- Press "#" on the Keypad
 - Hold the RFID Tag of the Key on the Scanner
 - The Door opens
 - Bring the Key back and Close the Door
-- Press "" on the Keypad
+- Press anything on the Keypad to lock the Door
 
 
 Unknown Users:
 - Visit the Webpage of the QR Code/Link
 - Fill in the Form
 - Get a Code
-- Press "*" 
-- Input: His code
-- Door opens and he can took the key
-- Hold the RFID Tag of the key he want to took 
-- Close the Door and press ""
+- Press "0" 
+- Input: The code
+- Take your Key
+- Hold the RFID Tag of the key on the Scanner
+- Close the Door and press anything
 
-Bring Back -> B from Known Users
-
-The Code of the Form only works 15min and only one time. If he want to take multiple keys, he need to fill it in the form.
 
 
 Other Functions for later:
