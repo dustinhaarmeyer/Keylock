@@ -4,69 +4,58 @@ from gsheets import sheet
 class Form:
     loginNum = []
     def __init__(self):
-        name = ""
-        email = ""
-        phoneNumber = ""
-        birthdate = ""
+        id_u= ""
         codeNumber = ""
         curr = 0
+        self.gs = sheet('/Users/Ralf/Desktop/creds.json')
         with open('listfile.txt', 'r') as filehandle:
             for line in filehandle:
                 currentPlace = line[:-1]
                 if curr == 0:
-                    name = currentPlace
-                    curr += 1
+                    id_u = currentPlace
+                    curr = 1
                 elif curr == 1:
-                    email = currentPlace
-                    curr += 1
-                elif curr == 2:
-                    phoneNumber = currentPlace
-                    curr += 1
-                elif curr == 3:
-                    birthdate = currentPlace
-                    curr += 1
-                elif curr == 4:
                     codeNumber = currentPlace
                     curr = 0
-                    x = unknownUser(name, email, phoneNumber, birthdate, codeNumber)
+                    x = unknownUser(id_u, codeNumber)
                     self.loginNum.append(x)
+
+    def submit(self, name, email, phone, birthdate):
+        if name != "" or email != "" or phone != "" or birthdate != "":
+            num = random.randint(1111,9999)
+            while self.check(num):
+                num = random.randint(1111,9999)
+            
+            id_u = self.gs.addNewUnknown(name, email, phone, birthdate)
+            self.addToFile(id_u, num)
+            print("New unknown User with Code: " + str(num))
+            return num
+        else: return 0
 
     def check(self, num) -> bool:
         for obj in self.loginNum:
             if str(num) == obj.codeNumber:
                 return True
         return False
-    def submit(self, name, email, phone, birthdate):
-        if name != "" or email != "" or phone != "" or birthdate != "":
-            num = random.randint(1111,9999)
-            while self.check(num):
-                num = random.randint(1111,9999)
-            self.loginNum.append(unknownUser(name, email, phone, birthdate, str(num)))
+
+    def addToFile(self, id_u, num):
+        if id_u != "" and str(num) != "":
+            self.loginNum.append(unknownUser(id_u, str(num)))
             # Add the Data to Google Sheet too
             print("Added User with Code: " + str(num))
             self.save()
-            return num
-        else: return 0
+
     def save(self):
         with open('listfile.txt', 'w') as filehandle:
             for listitem in self.loginNum:
-                filehandle.write('%s\n' % listitem.name)
-                filehandle.write('%s\n' % listitem.email)
-                filehandle.write('%s\n' % listitem.phoneNumber)
-                filehandle.write('%s\n' % listitem.birthdate)
+                filehandle.write('%s\n' % listitem.id_u)
                 filehandle.write('%s\n' % listitem.codeNumber)
-                print(listitem.name)
             filehandle.close()
 
 class unknownUser:
-    name = ""
-    email = ""
-    phoneNumber = ""
-    birthdate = ""
-    codeNumber = ""
-    def __init__(self, pname, pemail, pphoneNumber, pbirthdate, pnum):
-        self.name = pname
-        self.email = pemail
-        self.phoneNumber = pphoneNumber
-        self.birthdate = pbirthdate
-        self.codeNumber = pnum
+    id_u = "" #id_u on Google Sheets 
+    codeNumber = "" #Login Code
+    def __init__(self, pid_u, pnum):
+        self.id_u = str(pid_u)
+        self.codeNumber = str(pnum)
+

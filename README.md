@@ -1,12 +1,12 @@
-# Keysave
- A keysafe with RFID Cards and a Magnet Lock
+# General
+A keysafe with RFID Cards and a Magnet Lock
 
 Keysafe Box with a lots of keys and one Lock. Every Key has a RFID Tag. Known Users have their own RFID Card / Tag. Other users use a Web-Form to get a code to open the box.
 
-## How to use
+# How to use
 
-### Get a Key
-####    For the Known Users with an RFID Card:
+## Get a Key
+###    For the Known Users with an RFID Card:
 - Press "*" 
 - Put the RFID Card/Tag on the Scanner
 - The Door opens if your Card is correct and you dont have a Key already
@@ -15,10 +15,10 @@ Keysafe Box with a lots of keys and one Lock. Every Key has a RFID Tag. Known Us
 - Put the RFID Tag from the Key on the Scanner
     ->  You have your Key  <-
 
-####    For the unknown Users (using the Webform):
+###    For the unknown Users (using the Webform):
 
 
-### Return a Key
+## Return a Key
 
 Unknown Users:
 - Visit the Webpage of the QR Code/Link
@@ -39,6 +39,5 @@ Other Functions for later:
 
 
 # Good to know:
-- Data of unknown Users is uploaded to the Google Sheet but when checking Codes or get Data an internal File (listfile.txt) will be used. 
-Loading all of these Data from the Google Sheet File would take too long
+- For the Data of the unknown Users the Google Sheet Side and the "listfile.txt" will be used
 - When the Key Tag to close the Door is at both tries not correct (not found in the Keys Sheet) the Door will be closed (and the Admin will be Notificated -> not yet)

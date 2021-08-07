@@ -16,7 +16,7 @@ class sheet:
         # Read Lists
         self.readkUser()
         self.readKeys()
-        
+        print("Loaded")
     def readkUser(self):
         i = 1
         value = self.kUsers.get_value("B" + str(i+1))
@@ -101,4 +101,29 @@ class sheet:
         elif usertype == "unknown" and str(user) != "0":
             yx = ""
 
+    def addNewUnknown(self, name, email, phone, birthdate):
+        n = 2
+        value = self.unkUsers.get_value("A" + str(n))
+        while value != "":
+            n += 1
+            value = self.unkUsers.get_value("A" + str(n))
+        
+        header = self.unkUsers.cell("A" + str(n))  
+        header.value = n - 1
+        header.update()
+        header = self.unkUsers.cell("B" + str(n))  
+        header.value = name
+        header.update()
+        header = self.unkUsers.cell("C" + str(n))  
+        header.value = email
+        header.update()
+        header = self.unkUsers.cell("D" + str(n))  
+        header.value = phone
+        header.update()
+        header = self.unkUsers.cell("E" + str(n))  
+        header.value = birthdate
+        header.update()
+        return str(n-1)
+
 #gs = sheet('/Users/Ralf/Desktop/creds.json')
+#gs.addNewUnknown("name","email","phone","bd")
