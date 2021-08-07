@@ -80,7 +80,7 @@ while True:
         userNum = gs.findkUser(CodeNum)  #userC.search(str(CodeNum))
         print("User Number: " + str(userNum))
         if userNum != 0:
-            f.write("User is known. ID: " + userNum)
+            f.write("User is known. ID: " + str(userNum))
             if not gs.hasKey("known", userNum):
                 d.open()
                 code = ""
@@ -91,7 +91,7 @@ while True:
             else:
                 f.write("User already has a Key!")
         else:
-            f.write("User " + CodeNum + " not known")
+            f.write("Card " + str(CodeNum) + " not known")
             print("Not known! Please retry")
         f.flush()
     elif code == "0":   #Using the Code of the API

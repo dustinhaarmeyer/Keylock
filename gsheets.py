@@ -70,10 +70,4 @@ class sheet:
         elif usertype == "unknown" and str(user) != "0":
             yx = ""
 
-#sh = sheet('/Users/Ralf/Desktop/creds.json')
-
-#sh.takeKey(3, "known", "2")
-#print(sh.hasKey("known", "2"))
-#sh.returnKey(3, "known", "2")
-
-#print(sh.findkUser(27264954481))
+#gs = sheet('/Users/Ralf/Desktop/creds.json')
