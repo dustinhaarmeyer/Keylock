@@ -111,6 +111,30 @@ while True:
         while codeLenght < 4:
             sleep(0.1)
         print(code)
+        userNum = fo.check(code) 
+        if userNum != 0:
+            d.open()
+            print("Waiting for Key RFID")
+            tag = r.read()
+            CodeNum = str(tag)
+            CodeNum = CodeNum.split(' ')[0]
+            print("RFID Tag found: " + str(CodeNum))
+            KeyNum = gs.findKeyTag(CodeNum)
+            if KeyNum == 0:     #  Find Error while Reading
+                print("Error while Reading. Please put the Tag attached to your Key again on the Scanner")
+                sleep(0.5)
+                tag = r.read()
+                CodeNum = str(tag)
+                CodeNum = CodeNum.split(' ')[0]
+                print("RFID Tag found: " + str(CodeNum))
+                KeyNum = gs.findKeyTag(CodeNum)
+                if KeyNum == 0:
+                    print("Key cant be found. Admin will be Notificated!")
+                    d.close()
+            if KeyNum != 0:
+                gs.takeKey(KeyNum, "unknown", userNum)
+        else:
+            print("Your 4-Digit Code cannot be found")
         #Check Code and Open the Door
     elif code == "#":   #Returning Key
         code = ""
@@ -129,11 +153,17 @@ while True:
             user = gs.findUserTaken(KeyNum)
             if "K" in user:
                 user = str(user.split("K", 1)[1])
-                gs.takeKey(KeyNum, "known", user)
+                gs.returnKey(KeyNum, "known", user)
             elif "U" in user:
                 user = str(user.split("U", 1)[1])
-                gs.takeKey(KeyNum, "unknown", user)
+                gs.returnKey(KeyNum, "unknown", user)
             else: 
                 print("Error: User Code is wrong!")
+            code = ""
+            print("Press any button to close the Door")
+            while code == "":
+                sleep(0.2)
+            d.close()
+            code = ""
     else:
         code = ""

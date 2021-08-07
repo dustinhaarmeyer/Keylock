@@ -51,7 +51,13 @@ class sheet:
             header.value = "K" + str(user)
             header.update()
         elif usertype == "unknown" and str(user) != "0":
-            yx = ""
+            header = self.unkUsers.cell("F" + str(int(user) + 1))
+            header.value = num
+            header.update()
+            
+            header = self.keys.cell("F" + str(int(num) + 1))
+            header.value = "U" + str(user)
+            header.update()
 
     def returnKey(self, num, usertype, user):
         header = self.keys.cell("C" + str(int(num)+1))
@@ -71,7 +77,13 @@ class sheet:
             header.value = " "
             header.update()
         elif usertype == "unknown" and str(user) != "0":
-            yx = ""
+            header = self.unkUsers.cell("F" + str(int(user) + 1))
+            header.value = " "
+            header.update()
+            
+            header = self.keys.cell("F" + str(int(num) + 1))
+            header.value = " "
+            header.update()
 
     def findkUser(self, code):
         n = 0
@@ -127,3 +139,4 @@ class sheet:
 
 #gs = sheet('/Users/Ralf/Desktop/creds.json')
 #gs.addNewUnknown("name","email","phone","bd")
+#gs.returnKey(8, "unknown", 1)

@@ -32,11 +32,11 @@ class Form:
             return num
         else: return 0
 
-    def check(self, num) -> bool:
+    def check(self, num) -> int:
         for obj in self.loginNum:
             if str(num) == obj.codeNumber:
-                return True
-        return False
+                return int(obj.id_u)
+        return 0
 
     def addToFile(self, id_u, num):
         if id_u != "" and str(num) != "":
