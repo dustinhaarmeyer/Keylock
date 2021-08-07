@@ -5,8 +5,8 @@ import time
 class sheet:
     kUser = []
     unkUser = []
-    def __init__(self):
-        gc = pygsheets.authorize(service_file='/Users/Ralf/Desktop/creds.json')
+    def __init__(self, file):
+        gc = pygsheets.authorize(service_file=file)     	    #'/Users/Ralf/Desktop/creds.json'
         sh = gc.open('KeySave')
         self.keys = sh[0]
         self.kUsers = sh[1]
@@ -70,10 +70,10 @@ class sheet:
         elif usertype == "unknown" and str(user) != "0":
             yx = ""
 
-sh = sheet()
-input()
-sh.takeKey(3, "known", "2")
+#sh = sheet('/Users/Ralf/Desktop/creds.json')
+
+#sh.takeKey(3, "known", "2")
 #print(sh.hasKey("known", "2"))
-sh.returnKey(3, "known", "2")
+#sh.returnKey(3, "known", "2")
 
 #print(sh.findkUser(27264954481))

@@ -2,12 +2,10 @@ import RPi.GPIO as GPIO
 import time
 from time import sleep
 from RFIDReader import Reader
-#from Database import Database
-#from Database import Textfile, Textfile2
 from pad4pi import rpi_gpio
-#from LED import LED
 from Door import Door
 from Form import Form, unknownUser
+from gsheets import sheet
 import flask
 from flask import redirect, request
 import multiprocessing
@@ -29,10 +27,8 @@ factory = rpi_gpio.KeypadFactory()
 keypad = factory.create_keypad(keypad=KEYPAD, row_pins=ROW_PINS, col_pins=COL_PINS)
 r = Reader()     #RFID Reader
 fo = Form()
+gs = sheet('/Users/Ralf/Desktop/creds.json')
 d = Door(26)    #Board: 37)
-#db = Database("localhost", "securePassword", "root", "Keylock")                     #Database (mysql Server)
-#userC = Textfile("/home/pi/Desktop/Program/code.txt")       #/home/pi/RFID Keysave/code.txt"
-#keyC = Textfile2("/home/pi/Desktop/Program/KeyCode.txt")  #"/home/pi/RFID Keysave/KeyCode.txt"
 f = open("/home/pi/Desktop/Program/log.txt", "w") #Log File
 f.write("Log opened")
 
@@ -70,8 +66,6 @@ api.start()
 keypad.registerKeyPressHandler(foundKey)
 while True:
     while code == "":
-        #code = input()
-        #print('No button pressed')
         codeLenght = codeLenght
         sleep(0.1)
 
@@ -83,15 +77,19 @@ while True:
         CodeNum = CodeNum.split(' ')[0]
         f.write("RFID Tag found: " + CodeNum)
         print("RFID Tag: " + str(CodeNum))
-        userNum = userC.search(str(CodeNum))
+        userNum = gs.findkUser(CodeNum)  #userC.search(str(CodeNum))
         print("User Number: " + str(userNum))
         if userNum != 0:
-            f.write("User " + CodeNum + " is known")
-            d.open()
-            code = ""
-            while code == "":
-                sleep(0.2)
-            d.close()
+            f.write("User is known. ID: " + userNum)
+            if not gs.hasKey("known", userNum):
+                d.open()
+                code = ""
+                while code == "":
+                    sleep(0.2)
+                d.close()
+                code = ""
+            else:
+                f.write("User already has a Key!")
         else:
             f.write("User " + CodeNum + " not known")
             print("Not known! Please retry")
