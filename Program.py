@@ -29,8 +29,7 @@ r = Reader()     #RFID Reader
 fo = Form()
 gs = sheet('/Users/Ralf/Desktop/creds.json')
 d = Door(26)    #Board: 37)
-f = open("/home/pi/Desktop/Program/log.txt", "w") #Log File
-f.write("Log opened")
+print("Log opened")
 
 app = flask.Flask(__name__)
 def API(conf):
@@ -44,7 +43,7 @@ def form():
     email = request.args.get('email')
     phoneNumber = request.args.get('phone')
     birthdate = request.args.get('birthdate')
-    f.write("API called by :" + name + ". Email:" + email + ", phone Number:" + phoneNumber + ", birthdate:" + birthdate + ".")
+    print("API called by :" + name + ". Email:" + email + ", phone Number:" + phoneNumber + ", birthdate:" + birthdate + ".")
     print(birthdate)
     print(name)
     print(phoneNumber)
@@ -53,7 +52,7 @@ def form():
     return "Your 4-Digit Code to open the Door: " + str(num)
 
 def foundKey(key):
-    f.write("Keypad pressed. Key:" + key)
+    print("Keypad pressed. Key:" + key)
     global code
     global codeLenght
     print(key)
@@ -72,28 +71,40 @@ while True:
     if code == "*":                #RFID Code for known user
         code = ""
         codeLenght = 0
+        print("Start reading a Tag")
         tag = r.read()
         CodeNum = str(tag)
         CodeNum = CodeNum.split(' ')[0]
-        f.write("RFID Tag found: " + CodeNum)
         print("RFID Tag: " + str(CodeNum))
         userNum = gs.findkUser(CodeNum)  #userC.search(str(CodeNum))
         print("User Number: " + str(userNum))
         if userNum != 0:
-            f.write("User is known. ID: " + str(userNum))
+            print("User is known. ID: " + str(userNum))
             if not gs.hasKey("known", userNum):
                 d.open()
-                code = ""
-                while code == "":
-                    sleep(0.2)
-                d.close()
-                code = ""
+                print("Waiting for Key RFID")
+                tag = r.read()
+                CodeNum = str(tag)
+                CodeNum = CodeNum.split(' ')[0]
+                print("RFID Tag found: " + str(CodeNum))
+                KeyNum = gs.findKeyTag(CodeNum)
+                if KeyNum == 0:     #  Find Error while Reading
+                    print("Error while Reading. Please put the Tag attached to your Key again on the Scanner")
+                    sleep(0.5)
+                    tag = r.read()
+                    CodeNum = str(tag)
+                    CodeNum = CodeNum.split(' ')[0]
+                    print("RFID Tag found: " + str(CodeNum))
+                    KeyNum = gs.findKeyTag(CodeNum)
+                    if KeyNum == 0:
+                        print("Key cant be found. Admin will be Notificated!")
+                        d.close()
+                if KeyNum != 0:
+                    gs.takeKey(KeyNum, "known", userNum)
             else:
-                f.write("User already has a Key!")
+                print("User already has a Key!")
         else:
-            f.write("Card " + str(CodeNum) + " not known")
-            print("Not known! Please retry")
-        f.flush()
+            print("Card " + str(CodeNum) + " not known")
     elif code == "0":   #Using the Code of the API
         code = ""
         print("Please enter your 4-Digit Code")
@@ -103,6 +114,26 @@ while True:
         #Check Code and Open the Door
     elif code == "#":   #Returning Key
         code = ""
-        #Check Key and Open Door
+        print("Please put the RFID Tag of the Key on the Scanner")
+        tag = r.read()
+        CodeNum = str(tag)
+        CodeNum = CodeNum.split(' ')[0]
+        print("RFID Tag found: " + str(CodeNum))
+        KeyNum = gs.findKeyTag(CodeNum)
+        if KeyNum == 0:
+            print("Error while scanning the Tag, is it the Right one? Please retry!")
+        else:
+            d.open()
+            print("Door opened")
+            # Search User out of Key file
+            user = gs.findUserTaken(KeyNum)
+            if "K" in user:
+                user = str(user.split("K", 1)[1])
+                gs.takeKey(KeyNum, "known", user)
+            elif "U" in user:
+                user = str(user.split("U", 1)[1])
+                gs.takeKey(KeyNum, "unknown", user)
+            else: 
+                print("Error: User Code is wrong!")
     else:
         code = ""

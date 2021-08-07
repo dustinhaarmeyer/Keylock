@@ -1,4 +1,5 @@
 import random
+from gsheets import sheet
 
 class Form:
     loginNum = []
@@ -36,13 +37,16 @@ class Form:
                 return True
         return False
     def submit(self, name, email, phone, birthdate):
-        num = random.randint(1111,9999)
-        while self.check(num):
+        if name != "" or email != "" or phone != "" or birthdate != "":
             num = random.randint(1111,9999)
-        self.loginNum.append(unknownUser(name, email, phone, birthdate, str(num)))
-        print("Added User with Code: " + str(num))
-        self.save()
-        return num
+            while self.check(num):
+                num = random.randint(1111,9999)
+            self.loginNum.append(unknownUser(name, email, phone, birthdate, str(num)))
+            # Add the Data to Google Sheet too
+            print("Added User with Code: " + str(num))
+            self.save()
+            return num
+        else: return 0
     def save(self):
         with open('listfile.txt', 'w') as filehandle:
             for listitem in self.loginNum:
