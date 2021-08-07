@@ -71,9 +71,9 @@ class sheet:
             yx = ""
 
 sh = sheet()
-
+input()
 sh.takeKey(3, "known", "2")
-print(sh.hasKey("known", "2"))
+#print(sh.hasKey("known", "2"))
 sh.returnKey(3, "known", "2")
 
 #print(sh.findkUser(27264954481))

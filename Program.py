@@ -3,7 +3,7 @@ import time
 from time import sleep
 from RFIDReader import Reader
 #from Database import Database
-from Database import Textfile, Textfile2
+#from Database import Textfile, Textfile2
 from pad4pi import rpi_gpio
 #from LED import LED
 from Door import Door
@@ -31,8 +31,8 @@ r = Reader()     #RFID Reader
 fo = Form()
 d = Door(26)    #Board: 37)
 #db = Database("localhost", "securePassword", "root", "Keylock")                     #Database (mysql Server)
-userC = Textfile("/home/pi/Desktop/Program/code.txt")       #/home/pi/RFID Keysave/code.txt"
-keyC = Textfile2("/home/pi/Desktop/Program/KeyCode.txt")  #"/home/pi/RFID Keysave/KeyCode.txt"
+#userC = Textfile("/home/pi/Desktop/Program/code.txt")       #/home/pi/RFID Keysave/code.txt"
+#keyC = Textfile2("/home/pi/Desktop/Program/KeyCode.txt")  #"/home/pi/RFID Keysave/KeyCode.txt"
 f = open("/home/pi/Desktop/Program/log.txt", "w") #Log File
 f.write("Log opened")
 

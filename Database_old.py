@@ -2,7 +2,7 @@
 #python -m pip install mysql-connector-python
 import mysql.connector as mysql
 
-class Database():
+class Database_old():
     succesfullyConnected = False
     Mdb = ""
     cursor = ""
@@ -28,7 +28,7 @@ class Database():
         self.cursor = self.Mdb.cursor()
         self.cursor.execute(command)
 
-class Textfile():
+class Textfile_old():
     codes2 = []
     f = ""
     def __init__(self,filename):
@@ -45,7 +45,7 @@ class Textfile():
             return 1
         return 0
 
-class Textfile2():
+class Textfile2_old():
     codes = []
     f = ""
     def __init__(self,filename):
