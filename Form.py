@@ -7,7 +7,7 @@ class Form:
         id_u= ""
         codeNumber = ""
         curr = 0
-        self.gs = sheet('/Users/Ralf/Desktop/creds.json')
+        self.gs = sheet('/home/pi/Desktop/Program/creds.json')
         with open('listfile.txt', 'r') as filehandle:
             for line in filehandle:
                 currentPlace = line[:-1]
@@ -20,13 +20,13 @@ class Form:
                     x = unknownUser(id_u, codeNumber)
                     self.loginNum.append(x)
 
-    def submit(self, name, email, phone, birthdate):
-        if name != "" or email != "" or phone != "" or birthdate != "":
+    def submit(self, name, email, phone):
+        if name != "" or email != "" or phone != "":
             num = random.randint(1111,9999)
             while self.check(num):
                 num = random.randint(1111,9999)
             
-            id_u = self.gs.addNewUnknown(name, email, phone, birthdate)
+            id_u = self.gs.addNewUnknown(name, email, phone)
             self.addToFile(id_u, num)
             print("New unknown User with Code: " + str(num))
             return num
@@ -41,7 +41,6 @@ class Form:
     def addToFile(self, id_u, num):
         if id_u != "" and str(num) != "":
             self.loginNum.append(unknownUser(id_u, str(num)))
-            # Add the Data to Google Sheet too
             print("Added User with Code: " + str(num))
             self.save()
 

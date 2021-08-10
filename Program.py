@@ -42,13 +42,11 @@ def form():
     name = request.args.get('name')
     email = request.args.get('email')
     phoneNumber = request.args.get('phone')
-    birthdate = request.args.get('birthdate')
-    print("API called by :" + name + ". Email:" + email + ", phone Number:" + phoneNumber + ", birthdate:" + birthdate + ".")
-    print(birthdate)
+    print("API called by :" + name + ". Email:" + email + ", phone Number:" + phoneNumber +  ".")
     print(name)
     print(phoneNumber)
     print(email)
-    num = fo.submit(name, email, phoneNumber, birthdate)
+    num = fo.submit(name, email, phoneNumber)
     return "Your 4-Digit Code to open the Door: " + str(num)
 
 def foundKey(key):
@@ -113,26 +111,27 @@ while True:
         print(code)
         userNum = fo.check(code) 
         if userNum != 0:
-            d.open()
-            print("Waiting for Key RFID")
-            tag = r.read()
-            CodeNum = str(tag)
-            CodeNum = CodeNum.split(' ')[0]
-            print("RFID Tag found: " + str(CodeNum))
-            KeyNum = gs.findKeyTag(CodeNum)
-            if KeyNum == 0:     #  Find Error while Reading
-                print("Error while Reading. Please put the Tag attached to your Key again on the Scanner")
-                sleep(0.5)
+            if gs.hasKey("unknown", userNum):
+                d.open()
+                print("Waiting for Key RFID")
                 tag = r.read()
                 CodeNum = str(tag)
                 CodeNum = CodeNum.split(' ')[0]
                 print("RFID Tag found: " + str(CodeNum))
                 KeyNum = gs.findKeyTag(CodeNum)
-                if KeyNum == 0:
-                    print("Key cant be found. Admin will be Notificated!")
-                    d.close()
-            if KeyNum != 0:
-                gs.takeKey(KeyNum, "unknown", userNum)
+                if KeyNum == 0:     #  Find Error while Reading
+                    print("Error while Reading. Please put the Tag attached to your Key again on the Scanner")
+                    sleep(0.5)
+                    tag = r.read()
+                    CodeNum = str(tag)
+                    CodeNum = CodeNum.split(' ')[0]
+                    print("RFID Tag found: " + str(CodeNum))
+                    KeyNum = gs.findKeyTag(CodeNum)
+                    if KeyNum == 0:
+                        print("Key cant be found. Admin will be Notificated!")
+                        d.close()
+                if KeyNum != 0:
+                    gs.takeKey(KeyNum, "unknown", userNum)
         else:
             print("Your 4-Digit Code cannot be found")
         #Check Code and Open the Door

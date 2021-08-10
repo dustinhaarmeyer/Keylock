@@ -4,7 +4,6 @@ import time
 
 class sheet:
     kUser = []
-    unkUser = []
     keyList = []
     def __init__(self, file):
         gc = pygsheets.authorize(service_file=file)     	    #'/Users/Ralf/Desktop/creds.json'
@@ -14,6 +13,7 @@ class sheet:
         self.unkUsers = sh[2]
 
         # Read Lists
+        print("Starting Loading")
         self.readkUser()
         self.readKeys()
         print("Loaded")
@@ -51,7 +51,7 @@ class sheet:
             header.value = "K" + str(user)
             header.update()
         elif usertype == "unknown" and str(user) != "0":
-            header = self.unkUsers.cell("F" + str(int(user) + 1))
+            header = self.unkUsers.cell("E" + str(int(user) + 1))
             header.value = num
             header.update()
             
@@ -77,7 +77,7 @@ class sheet:
             header.value = " "
             header.update()
         elif usertype == "unknown" and str(user) != "0":
-            header = self.unkUsers.cell("F" + str(int(user) + 1))
+            header = self.unkUsers.cell("E" + str(int(user) + 1))
             header.value = " "
             header.update()
             
@@ -111,9 +111,12 @@ class sheet:
                 return True 
             return False
         elif usertype == "unknown" and str(user) != "0":
-            yx = ""
+            value = self.unkUsers.get_value("E" + str(int(user) + 1))
+            if value != " " and value != "":
+                return True 
+            return False
 
-    def addNewUnknown(self, name, email, phone, birthdate):
+    def addNewUnknown(self, name, email, phone):
         n = 2
         value = self.unkUsers.get_value("A" + str(n))
         while value != "":
@@ -132,11 +135,8 @@ class sheet:
         header = self.unkUsers.cell("D" + str(n))  
         header.value = phone
         header.update()
-        header = self.unkUsers.cell("E" + str(n))  
-        header.value = birthdate
-        header.update()
         return str(n-1)
 
 #gs = sheet('/Users/Ralf/Desktop/creds.json')
-#gs.addNewUnknown("name","email","phone","bd")
+#gs.addNewUnknown("name","email","phone")
 #gs.returnKey(8, "unknown", 1)
