@@ -3,11 +3,11 @@ from gsheets import sheet
 
 class Form:
     loginNum = []
-    def __init__(self):
+    def __init__(self, pgs):
         id_u= ""
         codeNumber = ""
         curr = 0
-        self.gs = sheet('/home/pi/Desktop/Program/creds.json')
+        self.gs = pgs  #sheet('/home/pi/Desktop/Program/creds.json')
         with open('listfile.txt', 'r') as filehandle:
             for line in filehandle:
                 currentPlace = line[:-1]

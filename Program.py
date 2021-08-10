@@ -26,8 +26,8 @@ code = ""  # Add something to test the Different buttons
 factory = rpi_gpio.KeypadFactory()
 keypad = factory.create_keypad(keypad=KEYPAD, row_pins=ROW_PINS, col_pins=COL_PINS)
 r = Reader()     #RFID Reader
-fo = Form()
 gs = sheet('/Users/Ralf/Desktop/creds.json')
+fo = Form(gs)  #Let Form use the Google Sheet functions without Loading everything again
 d = Door(26)    #Board: 37)
 print("Log opened")
 
